@@ -33,7 +33,7 @@ rm A
 
 
 */
-#include <build_in_progress/HL/dynamic/PLL_dynamic.h>
+#include "PLL_dynamic.h"
 #include <build_in_progress/HL/dynamic/WeightIncreaseMaintenance_improv.h>
 #include <build_in_progress/HL/dynamic/WeightDecreaseMaintenance_improv.h>
 #include <build_in_progress/HL/sort_v/graph_hash_of_mixed_weighted_update_vertexIDs_by_degrees.h>
@@ -279,11 +279,11 @@ void test_dynamic()
 	// TODO original: iteration_graph_times = 1e4
 	int iteration_graph_times = 1e4, iteration_source_times = 10, iteration_terminal_times = 10;
 	// TODO original: thread_num = 10
-	int V = 100, E = 500, precision = 1, thread_num = 100;
+	int V = 100, E = 500, precision = 1, thread_num = 10;
 	double ec_min = 1, ec_max = 10;
 
 	// TODO original: both time are 30
-	int weightIncrease_time = 10, weightDecrease_time = 0;
+	int weightIncrease_time = 30, weightDecrease_time = 30;
 	double weightChange_ratio = 0.2;
 
 	double avg_index_time = 0, avg_index_size_per_v = 0, avg_maintain_time = 0;
