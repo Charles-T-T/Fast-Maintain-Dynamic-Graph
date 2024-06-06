@@ -265,7 +265,8 @@ void SPREAD2(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v
     results_dynamic.clear(); // 清空 results_dynamic
 	
 	} // 多线程
-	else { // 非多线程
+	else 
+	{   // 非多线程
 		for (const auto& each_pair : al2)
 		{
 			int x = each_pair.first;
@@ -289,7 +290,8 @@ void SPREAD2(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v
 					}
 
 					// 18: if Query(x, t, L) > d1(x, t) then
-					auto query_result = graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, x, t); 
+					auto query_result = 
+						graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, x, t); 
 					weightTYPE query_xtL = query_result.first;
 					int h_c = query_result.second;
 					if (query_xtL > d1){
@@ -351,7 +353,7 @@ void SPREAD2(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v
 					}
 				}
 			}
-		}
+		 } // end of "for (const auto& each_pair : al2)"
 	} // 非多线程
 	
 }
@@ -482,7 +484,8 @@ void SPREAD3(graph_v_of_v_idealID &instance_graph,
 		std::vector<std::future<int>>().swap(results_dynamic);
 			
 	} // 多线程
-	else { // 非多线程
+	else 
+	{   // 非多线程
 		for (const auto &al3_elem : al3)
 		{
 			// 24: for each (u, v, du) ∈ AL3 do
@@ -507,7 +510,6 @@ void SPREAD3(graph_v_of_v_idealID &instance_graph,
 					mtx_5952[v].unlock();
 				}
 				// 25: Continue
-				// TODO 这里应该是直接结束线程？
 				continue;
 			}
 

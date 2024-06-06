@@ -4,8 +4,14 @@
 #include "DuQueue.h"
 
 
-void WeightDecreaseMaintenance_improv_step1(int v1, int v2, weightTYPE w_new, vector<vector<two_hop_label_v1>> *L, PPR_type *PPR, std::vector<affected_label> *CL, ThreadPool &pool_dynamic, std::vector<std::future<int>> &results_dynamic)
-{
+void WeightDecreaseMaintenance_improv_step1(
+		int v1, int v2, 
+		weightTYPE w_new, 
+		vector<vector<two_hop_label_v1>> *L, 
+		PPR_type *PPR, 
+		std::vector<affected_label> *CL, 
+		ThreadPool &pool_dynamic, 
+		std::vector<std::future<int>> &results_dynamic) {
 	// v1 --> 论文伪代码中的a
 	// v2 --> 论文伪代码中的b
 	for (int sl = 0; sl < 2; sl++)
@@ -17,12 +23,15 @@ void WeightDecreaseMaintenance_improv_step1(int v1, int v2, weightTYPE w_new, ve
 		for (auto it : (*L)[v1])
 		{
 			// it.vertex --> 论文伪代码中的v
+			// v2 --> 论文伪代码中的b
 			if (it.vertex <= v2)
 			{
 				results_dynamic.emplace_back(pool_dynamic.enqueue([it, v2, L, PPR, w_new, CL]
 																  {
+					// query_result is {distance, common hub}
+					auto query_result = 
+						graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, it.vertex, v2); 
 
-					auto query_result = graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, it.vertex, v2); // query_result is {distance, common hub}
 					if (query_result.first > it.distance + w_new)
 					{ 
 						mtx_595_1.lock();
@@ -38,7 +47,8 @@ void WeightDecreaseMaintenance_improv_step1(int v1, int v2, weightTYPE w_new, ve
 						}
 
 						// 更新PPR
-						if (query_result.second != it.vertex) {
+						if (query_result.second != it.vertex) 
+						{
 							mtx_5952[v2].lock();
 							PPR_insert(*PPR, v2, query_result.second, it.vertex);
 							mtx_5952[v2].unlock();
@@ -174,7 +184,7 @@ void DIFFUSE(
 	
 
 	else { // 非多线程
-		for (const auto &cl_elem : CL){
+		for (const auto &cl_elem : CL) {
 			int u = cl_elem.first;
 			int v = cl_elem.second;
 			weightTYPE du = cl_elem.dis;
@@ -255,11 +265,11 @@ void DIFFUSE(
 							}
 						}
 					}
-				}
-			}
+				} // end of "for (int i = 0; i < instance_graph[x].size(); ++i)"
+			} // end of "while(!Q.empty())"
 		}
 	}
-}
+} // end of DIFFUSE function
 
 void WeightDecreaseMaintenance_improv(graph_v_of_v_idealID &instance_graph, graph_hash_of_mixed_weighted_two_hop_case_info_v1 &mm, int v1, int v2, weightTYPE w_old, weightTYPE w_new,
 									  ThreadPool &pool_dynamic, std::vector<std::future<int>> &results_dynamic)
