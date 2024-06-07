@@ -1,90 +1,5 @@
 # 数据结构与算法2-大作业：复杂图中最短路径索引的动态维护
 
-## 补全代码任务
-
-**需要补全代码的位置,在目录 `build_in_progress\HL\dynamic\` 下：**
-
-1. `WeightDecreaseMaintenance_improv.h#DIFFUSE` 函数的**TODO**部分
-2.  `WeightIncreaseMaintenance_improv.h#SPREAD1` 函数的**TODO**部分
-3. `WeightIncreaseMaintenance_improv.h#SPREAD2` 函数的**TODO**部分
-4. `WeightIncreaseMaintenance_improv.h#SPREAD3` 函数的**TODO**部分
-
-**除 `build_in_progress\HL\dynamic` 文件夹外, 其余文件均为辅助实现的部分代码, 可以不重点关注**。
-
-下面对 `build_in_progress\HL\dynamic` 文件夹内文件及内部函数做简要释义。
-
-### `test_dynamic.h` 
-
--  `test_dynamic` 
-     - 测试函数，整个算法的调用入口在此，开头的注释部分注明了如何调用函数，以及编译运行的参数
-     - 根据参数随机生成图，改变图的边权并执行索引动态维护算法，然后执行正确性检查
-     - 其中含有多个控制参数便于debug测试，请详细读代码
--  `check_correctness_dynamic` 
-     -  检查生成的索引正确性的函数，会被 `test_dynamic` 调用
-
-
--  `graph_change_and_label_maintenance` 
-     -  改变图边权并动态维护索引的函数
-     -  随机改变一条边的权重，然后调用索引维护的函数
-
-### `PLL_dynamic.h` 
-
-结合 $PPR$ 的 $PLL$ 算法的实现文件 
-
-- `PLL_thread_function_dij_mixed` 
-  - 从点 $v_k$ 执行剪枝的 $Dijkstra$ 算法
-
-- `PLL_dynamic` 
-  -  $PPL$ 实现函数，分为初始化和索引生成部分
-  - 函数作用是生成索引和 $PPR$​ ，对应的伪代码参考阅读材料
-
-### `PPR.h` 
-
--  `PPR_type` 
-  - 自定义数据类型，为 $PPR$ 的数据类型
-  - 一些 $PPR$ 的操作函数（插入、删除等）
-
-### `two_hop_labels_base.h` 
-
-- `two_hop_label_v1`
-  - 索引结构
-- `graph_hash_of_mixed_weighted_two_hop_case_info_v1` 
-  - 存储 $PLL$ 相关参数和用时用量信息,主要用于传参
-  - 同时存储生成的索引和PPR，因此想要查看生成的索引只需要调用 `print_L` 函数或 `print_PPR` 函数即可
-- `insert_sorted_two_hop_label`
-  - 向有序索引中插入元素的函数
-- `search_sorted_two_hop_label` 和 `search_sorted_two_hop_label2`
-  - 在索引中进行查找的函数 
-- `affected_label` 
-  - 边权变化后受影响的索引
-- `graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc/2/3/4` 
-  - 最短距离查询函数
-  - 函数参数和返回值略有不同  
-
-### `WeightDecreaseMaintenance_improv.h` 
-
-是需要补全代码的文件，包含一个需要补全的函数。
-
-- `WeightDecreaseMaintenance_improv_step1` 
-  - 边权减小时的第一步操作，对应的伪代码参考阅读材料
--  `DIFFUSE` 
-  - 需要补全的函数，对应的伪代码参考阅读材料
-- `WeightDecreaseMaintenance_improv`  
-  - 边权减小的索引维护函数，会调用以上两个子函数
-  - 被 `graph_change_and_label_maintenance` 调用
-
-### `WeightIncreaseMaintenance_improv.h` 
-
-是需要补全代码的文件，包含三个需要补全的函数。
-
-- `SPREAD1` ,  `SPREAD2` ,  `SPREAD3` 
-  - 需要补全的函数,对应的伪代码参考阅读材料
-- `WeightIncreaseMaintenance_improv` 
-  - 边权增大的索引维护函数，会调用以上三个 `SPREAD` 函数
-  - 被 `graph_change_and_label_maintenance` 调用
-
-<div STYLE="page-break-after: always;"></div>
-
 ## 代码补全实现
 
 ### 实现思路
@@ -97,7 +12,7 @@
 
 - 根据现有的索引 $L$ 查询图中两点 $u, v$ 间距离（指最短路径长度，下同），即伪代码中的 $Query(u,v,L)$ 
 
-- 在某个点 $u$ 的  2-hop labels 中查找它到某点 $v$ 的距离，即伪代码中的 $L(u)[v]$ 
+- 在某个点 $u$ 的  $2-hop \; labels$ 中查找它到某点 $v$ 的距离，即伪代码中的 $L(u)[v]$ 
 
 - 添加 $PPR$ ，即伪代码中的 $PPR[u, h_c].push(v)$ ，其中 $h_c$ 就是 $u, v$ 的 " $hub$​ "
 
@@ -109,7 +24,7 @@
 
 
 
-​	由论文可知： `DIFFUSE` 函数是 $FastDeM$ 算法下对应的待补全代码，而该算法在进行 $DIFFUSE$ 之前的预处理和 $Algorithm 2:$ The RepairedDeAsyn algorithm 的前半部分算法基本一致。
+​	由论文可知： `DIFFUSE` 函数是 $FastDeM$ 算法下对应的待补全代码，而该算法在进行 $DIFFUSE$ 之前的预处理和 $Algorithm 2: The \; RepairedDeAsyn \; algorithm$ 的前半部分算法基本一致。
 
 ​	同时，这个预处理对应的代码是已知的，即 `WeightDecreaseMaintenance_improv_step1` 函数。
 
@@ -225,7 +140,7 @@ $Q\{(u|d_u) \}$​ 是一个优先队列，但是根据算法，它不仅支持 
 - 支持更新已在 $Q$ 内部的元素 $u$ 对应的 $d_u$ ，例如伪代码中的 $update (x_n | Dis[x_n]) \in Q$ 
 - 支持按照 $u$ 为下标直接访问其对应的 $d_u$ ，例如伪代码中的计算 $min\{L(x_n)[v], Q(x_n) \}$​​ 
 
-<img src="./images/image-DIFFUSE.png" alt="image-20240606211028673" style="zoom:67%;" />  
+<img src="./images/image-DIFFUSE.png" alt="image-20240606211028673" style="zoom:67%;" />
 
 <div STYLE="page-break-after: always;"></div>
 
@@ -239,7 +154,7 @@ $Q\{(u|d_u) \}$​ 是一个优先队列，但是根据算法，它不仅支持 
 
 现在我们可以补全 `DIFFUSE` 函数的代码了，只需要把论文中的**算法伪码逐行翻译**成我们的C++代码即可：
 
-参数说明：
+函数参数：
 
 ![code8](./images/code-8.png)
 
@@ -250,3 +165,69 @@ $Q\{(u|d_u) \}$​ 是一个优先队列，但是根据算法，它不仅支持 
 <div STYLE="page-break-after: always;"></div>
 
 ![code10](./images/code-10.png)
+
+<div STYLE="page-break-after: always;"></div>
+
+#### `SPREAD1` 函数
+
+$SPREAD1$​​ 算法伪码如下：
+
+<img src="./images/image-spread1.png" alt="spread1" style="zoom: 80%;" />
+
+这里用到的 $Queue$ 只是一个普通的优先队列，用 `stl::priority_queue` 即可。其余部分，按伪码**逐行翻译**即可。
+
+函数参数：
+![spread1-para](./images/code-11.png)
+
+<div STYLE="page-break-after: always;"></div>
+
+函数体：
+
+![spread1-in](./images/code-12.png)
+
+<div STYLE="page-break-after: always;"></div>
+
+#### `SPREAD2` 函数
+
+$SPREAD2$​ 的算法伪码如下：
+
+<img src="./images/image-spread2.png" alt="spread2-algo" style="zoom: 67%;" />
+
+同样的，其中基本操作的代码实现方式已经在前文展示过。将算法伪码**逐行翻译**成代码即可。
+
+函数参数：
+
+![spread2-para](./images/code-13.png)
+
+函数体：
+
+![spread2-part1](./images/code-14.png)
+
+![spread2-part2](./images/code-15.png)
+
+![spread2-part3](./images/code-16.png)
+
+<div STYLE="page-break-after: always;"></div>
+
+#### `SPREAD3` 函数
+
+$SPREAD3$ 的算法伪码如下：
+
+<img src="./images/image-spread3" alt="spread3" style="zoom:67%;" />
+
+可以看出， $SPREAD3$ 与 $DIFFUSE$ 算法过程基本一致，且也要用的特殊的优先队列——前面已通过自定义的 `DuQueue` 实现。
+
+函数参数：
+
+![spread3-para](./images/code-17.png)
+
+函数体：
+
+![spread3-part1](./images/code-18.png)
+
+<div STYLE="page-break-after: always;"></div>
+
+![spread3-part2](./images/code-19.png)
+
+![spread3-part3](./images/code-20.png)
+
