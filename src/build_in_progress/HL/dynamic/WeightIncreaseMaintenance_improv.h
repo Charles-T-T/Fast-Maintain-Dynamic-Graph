@@ -6,9 +6,12 @@
 // TODO test multi-thread
 #define MULTI_THREAD 0
 
-void SPREAD1(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v1>> *L,
-			 std::vector<affected_label> &al1, std::vector<pair_label> *al2, ThreadPool &pool_dynamic, std::vector<std::future<int>> &results_dynamic)
-{
+void SPREAD1(graph_v_of_v_idealID &instance_graph, 
+		vector<vector<two_hop_label_v1>> *L, 
+		std::vector<affected_label> &al1, 
+		std::vector<pair_label> *al2, 
+		ThreadPool &pool_dynamic, 
+		std::vector<std::future<int>> &results_dynamic) {
 	
 	/*TO DO 2*/
 	// TODO 2
@@ -126,13 +129,18 @@ void SPREAD1(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v
 				}
 			}
 		}
-	}// 非多线程
+	} // end of SPREAD1
 
 }
 
-void SPREAD2(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v1>> *L, PPR_type *PPR,
-			 std::vector<pair_label> &al2, std::vector<affected_label> *al3, ThreadPool &pool_dynamic, std::vector<std::future<int>> &results_dynamic)
-{
+void SPREAD2(
+		graph_v_of_v_idealID &instance_graph, 
+		vector<vector<two_hop_label_v1>> *L, 
+		PPR_type *PPR,
+		std::vector<pair_label> &al2, 
+		std::vector<affected_label> *al3, 
+		ThreadPool &pool_dynamic, 
+		std::vector<std::future<int>> &results_dynamic) {
 
 	/*TO DO 3*/
 	// TODO 3
@@ -267,6 +275,7 @@ void SPREAD2(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v
 	} // 多线程
 	else 
 	{   // 非多线程
+		// for each (x, y) ∈ AL2 do
 		for (const auto& each_pair : al2)
 		{
 			int x = each_pair.first;
@@ -275,9 +284,9 @@ void SPREAD2(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v
 			t_vec.push_back(y);
 			
 			// 15: for each t ∈ PPR[x, y] ∪ y do
-			for (const auto& t : t_vec){
+			for (const auto& t : t_vec) {
 				// 16: if r(t) > r(x) then
-				if (t < x){
+				if (t < x) {
 					// 17: d1(x, t) = min({L(xn)[t] + w(x, xn)}), xn ∈ N(x)
 					weightTYPE d1 = MAX_VALUE;
 					for (int i = 0; i < instance_graph[x].size(); ++i){
@@ -299,7 +308,7 @@ void SPREAD2(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v
 						al3->push_back(affected_label(x, t, d1));
 					}
 					// 19: else
-					else{
+					else {
 						{
 							// 19: PPR[x, hc].push(t)
 							mtx_5952[x].lock();
@@ -316,7 +325,7 @@ void SPREAD2(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v
 				}
 
 				// 20: if r(x) > r(t) then
-				if (x < t){
+				if (x < t) {
 					// 21: d1(t, x) = min({L(tn)[x] + w(t, tn)}), tn ∈ N(t)
 					weightTYPE d1 = MAX_VALUE;
 					for (int i = 0; i < instance_graph[t].size(); ++i){
@@ -329,7 +338,8 @@ void SPREAD2(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v
 					}
 
 					// 22: if Query(t, x, L) > d1(t, x) then
-					auto query_result = graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, t, x); 
+					auto query_result = 
+						graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, t, x); 
 					weightTYPE query_txL = query_result.first;
 					int h_c = query_result.second;
 					if (query_txL > d1){
@@ -337,7 +347,7 @@ void SPREAD2(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v
 						al3->push_back(affected_label(t, x, d1));
 					}
 					// 23: else
-					else{
+					else {
 						{
 							// 19: PPR[t, hc].push(x)
 							mtx_5952[t].lock();
@@ -353,17 +363,19 @@ void SPREAD2(graph_v_of_v_idealID &instance_graph, vector<vector<two_hop_label_v
 					}
 				}
 			}
-		 } // end of "for (const auto& each_pair : al2)"
-	} // 非多线程
+		 } 
+	} // end of SPREAD2
 	
 }
 
-void SPREAD3(graph_v_of_v_idealID &instance_graph,
-			 vector<vector<two_hop_label_v1>> *L, PPR_type *PPR,
-			 std::vector<affected_label> &al3,
-			 ThreadPool &pool_dynamic, std::vector<std::future<int>> &results_dynamic)
-{
-	/*TO DO 4*/
+void SPREAD3(
+		graph_v_of_v_idealID &instance_graph,
+		vector<vector<two_hop_label_v1>> *L, 
+		PPR_type *PPR,
+		std::vector<affected_label> &al3,
+		ThreadPool &pool_dynamic, 
+		std::vector<std::future<int>> &results_dynamic) {
+/*TO DO 4*/
 	// TODO 4
 
 	// TODO debug line
@@ -486,14 +498,15 @@ void SPREAD3(graph_v_of_v_idealID &instance_graph,
 	} // 多线程
 	else 
 	{   // 非多线程
+		// 24: for each (u, v, du) ∈ AL3 do
 		for (const auto &al3_elem : al3)
 		{
-			// 24: for each (u, v, du) ∈ AL3 do
 			int u = al3_elem.first;
 			int v = al3_elem.second;
 			weightTYPE du = al3_elem.dis;
 			
-			auto query_result = graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, u, v);
+			auto query_result = 
+				graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, u, v);
 
 			// 25: if Q(u, v, L) ≤ du
 			if (query_result.first <= du){
@@ -549,7 +562,8 @@ void SPREAD3(graph_v_of_v_idealID &instance_graph,
 						// 30: if Dis[xn] == -1 then Dis[xn] = Query(xn, v, L)
 						if (Dis[xn] == -1)
 						{
-							auto query_result = graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, xn, v);
+							auto query_result = 
+								graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, xn, v);
 							Dis[xn] = query_result.first;
 							h_c = query_result.second;
 						}
@@ -583,9 +597,8 @@ void SPREAD3(graph_v_of_v_idealID &instance_graph,
 					}
 				}
 			}
-			
 		}
-	} // 非多线程
+	} // end of SPREAD3
 
 }
 

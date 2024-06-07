@@ -225,7 +225,7 @@ void DIFFUSE(
 						if (Dis[xn] == -1)
 						{
 							auto query_result = 
-							graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, xn, v);
+								graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, xn, v);
 							Dis[xn] = query_result.first;
 							h_c = query_result.second;
 						}
@@ -250,7 +250,6 @@ void DIFFUSE(
 								// 14: Insert (or update) (xn | dnew) ∈	Q
 								Q.emplace(xn, dx + w_xn_x);
 							}
- 
 							// 15: PPR[xn, hc].push(v)
 							{
 								mtx_5952[xn].lock();
@@ -265,11 +264,11 @@ void DIFFUSE(
 							}
 						}
 					}
-				} // end of "for (int i = 0; i < instance_graph[x].size(); ++i)"
-			} // end of "while(!Q.empty())"
-		}
-	}
-} // end of DIFFUSE function
+				} 
+			} 
+		} 
+	} // end of DIFFUSE
+} 
 
 void WeightDecreaseMaintenance_improv(graph_v_of_v_idealID &instance_graph, graph_hash_of_mixed_weighted_two_hop_case_info_v1 &mm, int v1, int v2, weightTYPE w_old, weightTYPE w_new,
 									  ThreadPool &pool_dynamic, std::vector<std::future<int>> &results_dynamic)
