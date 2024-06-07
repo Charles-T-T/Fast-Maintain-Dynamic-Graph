@@ -4,7 +4,7 @@
 
 ### 实现思路
 
-​	因为整体项目文件繁多、涉及函数调用复杂，所以我们首先根据论文中的算法伪代码，在项目已有代码的基础上，由需要的操作对应找出其要用到的函数、方法。总结归纳得出：
+​	因为整体项目文件繁多、涉及函数调用复杂，所以我们首先根据论文中的**算法伪代码**，在项目**已有代码**的基础上，由需要的操作**对应找出**其要用到的函数、方法。总结归纳得出：
 
 #### 需要实现的主要操作 
 
@@ -12,7 +12,7 @@
 
 - 根据现有的索引 $L$ 查询图中两点 $u, v$ 间距离（指最短路径长度，下同），即伪代码中的 $Query(u,v,L)$ 
 
-- 在某个点 $u$ 的  $2-hop \; labels$ 中查找它到某点 $v$ 的距离，即伪代码中的 $L(u)[v]$ 
+- 在某个点 $u$ 的  $\mathrm{2-hop \enspace labels}$ 中查找它到某点 $v$ 的距离，即伪代码中的 $L(u)[v]$ 
 
 - 添加 $PPR$ ，即伪代码中的 $PPR[u, h_c].push(v)$ ，其中 $h_c$ 就是 $u, v$ 的 " $hub$​ "
 
@@ -20,19 +20,19 @@
 
 - 临时“节点-距离”优先队列的建立和使用，即伪代码中的 $Q=\{(u | d_u)\}$​​ 及其相关操作
 
-  ......
+  ...
 
+#### 算法伪码与实际代码的对应
 
-
-​	由论文可知： `DIFFUSE` 函数是 $FastDeM$ 算法下对应的待补全代码，而该算法在进行 $DIFFUSE$ 之前的预处理和 $Algorithm 2: The \; RepairedDeAsyn \; algorithm$ 的前半部分算法基本一致。
+​	由论文可知： `DIFFUSE` 函数是 $\mathrm{FastDeM}$ 算法下对应的待补全代码，而该算法在进行 $DIFFUSE$ 之前的预处理和 $\mathbf{Algorithm \enspace 2}\enspace \mathrm{The \enspace RepairedDeAsyn \enspace algorithm}$ 的前半部分算法基本一致。
 
 ​	同时，这个预处理对应的代码是已知的，即 `WeightDecreaseMaintenance_improv_step1` 函数。
 
-​	于是，可以对照该函数和 $Algorithm 2$ 前半部分，找出一些必须操作的代码实现。
+​	于是，可以对照该函数和 $\mathbf{{Algorithm}\enspace{2}}$ 前半部分，找出一些必须操作的代码实现。
 
 ​	这部分伪代码如下：
 
-<img src="./images/image-algorithm2.png" alt="algorithm2" style="zoom:67%;" />    
+<img src="./images/image-algorithm2.png" alt="algorithm2" style="zoom:67%;" />
 
 <div STYLE="page-break-after: always;"></div>
 
@@ -121,7 +121,7 @@ Dis[u] = du;
 
 ![code5](./images/code-5.png)
 
-由此也可以知道获取某节点的相邻节点，即 **for** each $x_n \in N(x)$ 的代码实现：
+由此也可以知道获取某节点的相邻节点，即 $\mathbf{for}\enspace\mathrm{each}\enspace x_n \in N(x)$ 的代码实现：
 
 ```cpp
 // for each xn ∈ N(x) 
@@ -137,8 +137,8 @@ for (int i = 0; i < instance_graph[x].size(); ++i)
 
 $Q\{(u|d_u) \}$​ 是一个优先队列，但是根据算法，它不仅支持 `std::priority_queue` 的基本操作，还要求：
 
-- 支持更新已在 $Q$ 内部的元素 $u$ 对应的 $d_u$ ，例如伪代码中的 $update (x_n | Dis[x_n]) \in Q$ 
-- 支持按照 $u$ 为下标直接访问其对应的 $d_u$ ，例如伪代码中的计算 $min\{L(x_n)[v], Q(x_n) \}$​​ 
+- 支持更新已在 $Q$ 内部的元素 $u$ 对应的 $d_u$ ，例如伪代码中的 $\mathrm{update}\enspace (x_n | Dis[x_n]) \in Q$ 
+- 支持按照 $u$ 为下标直接访问其对应的 $d_u$ ，例如伪代码中的计算 $\mathrm{min}\{L(x_n)[v], Q(x_n) \}$​​ 
 
 <img src="./images/image-DIFFUSE.png" alt="image-20240606211028673" style="zoom:67%;" />
 
@@ -231,3 +231,24 @@ $SPREAD3$ 的算法伪码如下：
 
 ![spread3-part3](./images/code-20.png)
 
+<div STYLE="page-break-after: always;"></div>
+
+### 代码测试
+
+测试参数：源文件中的初始参数设置如下
+
+![paras](./images/test-paras.png)
+
+初始参数下运行结果如下：
+
+![res](./images/testRes.png)
+
+可以看出，本项目实现了**边权变化情况下复杂图最短路长索引的快速维护**，使索引更新速度达到了**毫秒**级别。
+
+且经过多次检验，上述参数、10000轮测试为一组的情况下，每组出错次数平均不超过1次，**正确性**良好。
+
+
+
+### 其他讨论
+
+​	可以看到，四个待补充函数的参数中都提供了线程池等支持多线程的参数。我们也尝试编写了多线程版本的代码，经测试， `DIFFUSE` 函数可在多线程下正常运行，但是对查询速度的提升并不明显；而 `SPREAD1/2/3` 函数在多线程下运行不稳定、容易导致程序卡死、崩溃。这应该是因为我们对线程锁的运用有不恰当之处，或者有其他线程管理问题。这也是本项目可以进一步优化的地方。
