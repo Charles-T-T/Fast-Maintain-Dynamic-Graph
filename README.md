@@ -42,7 +42,7 @@ $3:$ **if** $r(v) \ge r(b)$ **then**
 
 对应代码为：
 
-<img src="./images/code-1.png" alt="code1" style="zoom:50%;" />  
+<img src="./images/code-1.png" alt="code1" width = 400>
 
 其中 `it` 是一个 2-hop label，代码结构为：
 
@@ -140,7 +140,7 @@ $Q\{(u|d_u) \}$​ 是一个优先队列，但是根据算法，它不仅支持 
 - 支持更新已在 $Q$ 内部的元素 $u$ 对应的 $d_u$ ，例如伪代码中的 $\mathrm{update}\enspace (x_n | Dis[x_n]) \in Q$ 
 - 支持按照 $u$ 为下标直接访问其对应的 $d_u$ ，例如伪代码中的计算 $\mathrm{min}\{L(x_n)[v], Q(x_n) \}$​​ 
 
-<img src="./images/image-DIFFUSE.png" alt="image-20240606211028673" style="zoom:67%;" />
+<img src="./images/image-DIFFUSE.png" alt="image-DIFFUSE" width = 550 />
 
 <div STYLE="page-break-after: always;"></div>
 
@@ -172,7 +172,7 @@ $Q\{(u|d_u) \}$​ 是一个优先队列，但是根据算法，它不仅支持 
 
 $SPREAD1$​​ 算法伪码如下：
 
-<img src="./images/image-spread1.png" alt="spread1" style="zoom: 80%;" />
+<img src="./images/image-spread1.png" alt="spread1" width = 600 />
 
 这里用到的 $Queue$ 只是一个普通的优先队列，用 `stl::priority_queue` 即可。其余部分，按伪码**逐行翻译**即可。
 
@@ -191,7 +191,7 @@ $SPREAD1$​​ 算法伪码如下：
 
 $SPREAD2$​ 的算法伪码如下：
 
-<img src="./images/image-spread2.png" alt="spread2-algo" style="zoom: 67%;" />
+<img src="./images/image-spread2.png" alt="spread2-algo" width = "550" />
 
 同样的，其中基本操作的代码实现方式已经在前文展示过。将算法伪码**逐行翻译**成代码即可。
 
@@ -213,7 +213,7 @@ $SPREAD2$​ 的算法伪码如下：
 
 $SPREAD3$ 的算法伪码如下：
 
-<img src="./images/image-spread3" alt="spread3" style="zoom:67%;" />
+<img src="./images/image-spread3" alt="spread3" width = 550 />
 
 可以看出， $SPREAD3$ 与 $DIFFUSE$ 算法过程基本一致，且也要用的特殊的优先队列——前面已通过自定义的 `DuQueue` 实现。
 
@@ -251,4 +251,4 @@ $SPREAD3$ 的算法伪码如下：
 
 ### 其他讨论
 
-​	可以看到，四个待补充函数的参数中都提供了线程池等支持多线程的参数。我们也尝试编写了多线程版本的代码，经测试， `DIFFUSE` 函数可在多线程下正常运行，但是对查询速度的提升并不明显；而 `SPREAD1/2/3` 函数在多线程下运行不稳定、容易导致程序卡死、崩溃。这应该是因为我们对线程锁的运用有不恰当之处，或者有其他线程管理问题。这也是本项目可以进一步优化的地方。
+​	可以看到，四个待补充函数的参数中都提供了线程池等支持多线程的参数。我们也尝试编写了多线程版本的代码，经测试， `DIFFUSE` 函数可在多线程下正常运行，但是对查询速度的提升并不明显；而 `SPREAD1/2/3` 函数在多线程下运行不稳定，容易导致程序卡死、崩溃。这应该是因为我们对线程锁的运用有不恰当之处，或者有其他线程管理问题。这也是本项目可以进一步优化的地方。

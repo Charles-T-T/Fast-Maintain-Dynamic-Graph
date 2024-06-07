@@ -1,6 +1,6 @@
 # 补全代码任务
 
-参考 $\mathrm{Fast \enspace exact \enspace shortest-path \enspace distance \enspace queries \enspace on \enspace large \enspace networks \enspace by \enspace pruned \enspace landmark \enspace labeling}$ 和 $\mathrm{Fast \enspace Maintenance \enspace of \enspace 2-hop \enspace Labels \enspace for \enspace Shortest \enspace Distance \enspace Queries \enspace on \enspace Fully \enspace Dynamic \enspace Graphs}$ 两篇论文，补全第二篇论文中，在边权减小、增加情况下快速维护最短路径索引的算法（即 $\textbf{Algorithm 3} \enspace \mathrm{The \enspace FastDeM \enspace algorithm} $ 和 $\textbf{Algorithm 4} \enspace \mathrm{The \enspace FastInM \enspace algorithm}$ ）对应的代码。
+参考 $\mathrm{Fast \enspace exact \enspace shortest-path \enspace distance \enspace queries \enspace on \enspace large \enspace networks \enspace by \enspace pruned \enspace landmark \enspace labeling}$ 和 $\mathrm{Fast \enspace Maintenance \enspace of \enspace 2-hop \enspace Labels \enspace for \enspace Shortest \enspace Distance \enspace Queries \enspace on \enspace Fully \enspace Dynamic \enspace Graphs}$ 两篇论文，补全第二篇论文中，在边权减小、增加情况下快速维护最短路径索引的算法（即 $\textbf{Algorithm 3} \enspace \mathrm{The \enspace FastDeM \enspace algorithm}$ 和 $\textbf{Algorithm 4} \enspace \mathrm{The \enspace FastInM \enspace algorithm}$ ）对应的代码。
 
 **需要补全代码的位置,在目录 `build_in_progress\HL\dynamic\` 下：**
 
