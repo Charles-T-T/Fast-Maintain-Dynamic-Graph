@@ -9,10 +9,9 @@
 #define weightTYPE double // float causes error due to "if (query_result.first + 1e-3 >= search_result)" in IncresseMaintenance code
 
 /*PLL label format*/
-class two_hop_label_v1 {
+class two_hop_label_v1 { // TODO ??6
 public:
-	// std::vector<PLL_with_non_adj_reduction_sorted_label> should be sorted by vertex
-	int vertex; 
+	int vertex; // std::vector<PLL_with_non_adj_reduction_sorted_label> should be sorted by vertex
 	weightTYPE distance;
 };
 
@@ -92,7 +91,7 @@ public:
 		long long int size = 0;
 		for (int i = 0; i < PPR.size(); i++) {
 			for (int j = 0; j < PPR[i].size(); j++) {
-				size = size + (PPR[i][j].second.size() + 1) * sizeof(int); // + 1 ï¿½ï¿½Ó¦ PPR[i][j].first
+				size = size + (PPR[i][j].second.size() + 1) * sizeof(int); // + 1 ¶ÔÓ¦ PPR[i][j].first
 			}
 		}
 		return size;

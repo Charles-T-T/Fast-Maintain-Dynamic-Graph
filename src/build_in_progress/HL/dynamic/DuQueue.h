@@ -10,11 +10,9 @@ private:
     // 优先队列比较函数（按照du由小到大）
     struct Compare
     {
-        bool operator()(
-                const std::pair<int, weightTYPE> &a, 
-                const std::pair<int, weightTYPE> &b) const {
-            if (a.second != b.second)
-                return a.second < b.second || (a.second == b.second && a.first < b.first);
+        bool operator()(const std::pair<int, weightTYPE> &a, const std::pair<int, weightTYPE> &b) const
+        {
+            return a.second < b.second || (a.second == b.second && a.first < b.first);
         }
     };
     // 用set作为优先队列容器，元素为<u, du>：du为结点u对应的路径长度

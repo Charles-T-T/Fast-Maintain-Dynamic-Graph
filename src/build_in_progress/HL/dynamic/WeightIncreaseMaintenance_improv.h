@@ -12,13 +12,7 @@ void SPREAD1(graph_v_of_v_idealID &instance_graph,
 		std::vector<pair_label> *al2, 
 		ThreadPool &pool_dynamic, 
 		std::vector<std::future<int>> &results_dynamic) {
-	
-	/*TO DO 2*/
-	// TODO 2
-
-	// TODO debug line
-	// std::cout << "spread1" << std::endl;
-
+	/* TODO 2*/
 	if (MULTI_THREAD){ // 多线程
 	// 局部互斥锁来保护 al2 的访问
     std::mutex al2_mutex;
@@ -82,8 +76,6 @@ void SPREAD1(graph_v_of_v_idealID &instance_graph,
     results_dynamic.clear(); // 清空 results_dynamic
 	} // 多线程
 
-	
-
 	else { // 非多线程
 		// 8: for each (u, v, d') ∈ AL1 do
 		for (const auto &al : al1){
@@ -142,13 +134,7 @@ void SPREAD2(
 		ThreadPool &pool_dynamic, 
 		std::vector<std::future<int>> &results_dynamic) {
 
-	/*TO DO 3*/
-	// TODO 3
-
-	// TODO debug line
-	// std::cout << "spread2" << std::endl;
-	
-
+	/* TODO 3*/
 	if (MULTI_THREAD){
     std::mutex al3_mutex; // 保护 al3 的互斥锁
 

@@ -73,22 +73,17 @@ void WeightDecreaseMaintenance_improv_step1(
 }
 
 void DIFFUSE(
-	graph_v_of_v_idealID &instance_graph,
-	std::vector<std::vector<two_hop_label_v1>> *L,
-	PPR_type *PPR, std::vector<affected_label> &CL,
-	ThreadPool &pool_dynamic, std::vector<std::future<int>> &results_dynamic)
-{
-	// TODO 代码填空1
-	// TODO debug line
-	// std::cout << "DIFFUSE" << std::endl;
-
+		graph_v_of_v_idealID &instance_graph,
+		std::vector<std::vector<two_hop_label_v1>> *L,
+		PPR_type *PPR, std::vector<affected_label> &CL,
+		ThreadPool &pool_dynamic, std::vector<std::future<int>> &results_dynamic) {
+	/* TODO 1 */
 	if (0){ // 多线程
 		// 4: for each (u, v, du) ∈ CL do
 		for (const auto &cl_elem : CL)
 		{
 			// 线程开始
-			results_dynamic.emplace_back(pool_dynamic.enqueue([&instance_graph, L, PPR, cl_elem]
-															{
+			results_dynamic.emplace_back(pool_dynamic.enqueue([&instance_graph, L, PPR, cl_elem] {
 			int u = cl_elem.first;
 			int v = cl_elem.second;
 			weightTYPE du = cl_elem.dis;
@@ -181,10 +176,10 @@ void DIFFUSE(
 		}
 		std::vector<std::future<int>>().swap(results_dynamic);
 	} // 多线程
-	
-
-	else { // 非多线程
-		for (const auto &cl_elem : CL) {
+	else 
+	{ // 非多线程
+		for (const auto &cl_elem : CL) 
+		{
 			int u = cl_elem.first;
 			int v = cl_elem.second;
 			weightTYPE du = cl_elem.dis;
@@ -224,8 +219,7 @@ void DIFFUSE(
 						// 9: if Dis[xn] == -1 then Dis[xn] = Query(xn, v, L)
 						if (Dis[xn] == -1)
 						{
-							auto query_result = 
-								graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, xn, v);
+							auto query_result = graph_hash_of_mixed_weighted_two_hop_v1_extract_distance_no_reduc2(*L, xn, v);
 							Dis[xn] = query_result.first;
 							h_c = query_result.second;
 						}
