@@ -32,7 +32,7 @@
 
 ​	这部分伪代码如下：
 
-<img src="./images/image-algorithm2.png" alt="algorithm2" style="zoom:67%;" />
+<img src="./images/image-algorithm2.png" alt="algorithm2" width = 550 />
 
 <div STYLE="page-break-after: always;"></div>
 
