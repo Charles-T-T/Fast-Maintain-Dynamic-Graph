@@ -1,4 +1,4 @@
-# 数据结构与算法2-大作业：复杂图中最短路径索引的动态维护
+# 数据结构与算法2-大作业：<br>复杂图中最短路径索引的动态维护
 
 ## 代码补全实现
 
@@ -12,7 +12,7 @@
 
 - 根据现有的索引 $L$ 查询图中两点 $u, v$ 间距离（指最短路径长度，下同），即伪代码中的 $Query(u,v,L)$ 
 
-- 在某个点 $u$ 的  $\mathrm{2-hop \enspace labels}$ 中查找它到某点 $v$ 的距离，即伪代码中的 $L(u)[v]$ 
+- 在某个点 $u$ 的  $\mathrm{2\!-\!hop \enspace labels}$ 中查找它到某点 $v$ 的距离，即伪代码中的 $L(u)[v]$ 
 
 - 添加 $PPR$ ，即伪代码中的 $PPR[u, h_c].push(v)$ ，其中 $h_c$ 就是 $u, v$ 的 " $hub$​ "
 
@@ -44,7 +44,7 @@ $3:$ **if** $r(v) \ge r(b)$ **then**
 
 <img src="./images/code-1.png" alt="code1" width = 400>
 
-其中 `it` 是一个 2-hop label，代码结构为：
+其中 `it` 是一个 $\mathrm{2\!-\!hop \enspace label}$ ，代码结构为：
 
 ![code2](./images/code-2.png)
 
