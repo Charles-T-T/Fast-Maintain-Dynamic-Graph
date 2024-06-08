@@ -2,18 +2,25 @@
 
 
 
-**:bookmark_tabs:目录** 
-
-***
-
-[TOC]
+## :bookmark_tabs:目录
 
 - [PPL算法理解](#PPL算法理解)
+- [补全算法理解](#补全算法理解)
+  - [FastDeM(用于在边权减小时维护标签索引的算法)](#FastDeM(用于在边权减小时维护标签索引的算法))
+  - [FastInM(用于在边权增加时维护标签索引的算法)](#FastInM(用于在边权增加时维护标签索引的算法))
+- [代码补全实现](#代码补全实现)
+  - [实现思路](#实现思路)
+    - [`DIFFUSE` 函数](#`DIFFUSE`-函数)
+    - [`SPREAD1` 函数](#`SPREAD1`-函数)
+    - [`SPREAD2` 函数](#`SPREAD2`-函数)
+    - [`SPREAD3` 函数](#`SPREAD3`-函数)
+  - [代码测试](#代码测试)
+  - [优化讨论](#优化讨论)
+
+<br>
 
 
-**:handshake:分工说明**
-
-***
+## :handshake:分工说明
 
 本次大作业中，小组三位成员通力合作、默契配合，在论文理解、代码实现和报告撰写等方面均分工良好，最终取得了令我们满意的项目成果。
 
@@ -25,6 +32,8 @@
 
 
 
+<br>
+<br>
 
 
 <div STYLE="page-break-after: always;"></div>
@@ -82,9 +91,9 @@ $$
 
 <div STYLE="page-break-after: always;"></div>
 
-## :two: 补全算法理解
+## 补全算法理解
 
-###  $\mathrm{FastDeM}(用于在边权减小时维护标签索引的算法)$
+### FastDeM(用于在边权减小时维护标签索引的算法)
 
 <img src="./images/fastdem.png" alt="fastdem" width="550" />
 
@@ -104,7 +113,7 @@ $\mathrm{FastDeM}$ 算法需要补全的部分是 $DIFFUSE$ ，这个函数处�
 
 <div STYLE="page-break-after: always;"></div>
 
-### $\mathrm{FastInM}(用于在边权增加时维护标签索引的算法) $  
+### FastInM(用于在边权增加时维护标签索引的算法)  
 
 <img src="./images/fastinm.png" alt="fastinm" width = "550" />
 
@@ -136,7 +145,7 @@ $\mathrm{FastInM}$ 算法需要补全的部分是三个 $SPREAD$ 函数，这三
 
 <div STYLE="page-break-after: always;"></div>
 
-## :three: 代码补全实现
+## 代码补全实现
 
 ### 实现思路
 
