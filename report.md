@@ -6,11 +6,11 @@
 
 - [PPL算法理解](#PPL算法理解)
 - [补全算法理解](#补全算法理解)
-  - [FastDeM(用于在边权减小时维护标签索引的算法)](#FastDeM(用于在边权减小时维护标签索引的算法))
+  - [FastDeM](#FastDeM)
   - [FastInM(用于在边权增加时维护标签索引的算法)](#FastInM(用于在边权增加时维护标签索引的算法))
 - [代码补全实现](#代码补全实现)
   - [实现思路](#实现思路)
-    - [`DIFFUSE` 函数](#`DIFFUSE`-函数)
+    - [DIFFUSE函数](#DIFFUSE函数)
     - [`SPREAD1` 函数](#`SPREAD1`-函数)
     - [`SPREAD2` 函数](#`SPREAD2`-函数)
     - [`SPREAD3` 函数](#`SPREAD3`-函数)
@@ -91,9 +91,12 @@ $$
 
 <div STYLE="page-break-after: always;"></div>
 
+<br>
+
+
 ## 补全算法理解
 
-### FastDeM(用于在边权减小时维护标签索引的算法)
+### FastDeM
 
 <img src="./images/fastdem.png" alt="fastdem" width="550" />
 
@@ -144,6 +147,9 @@ $\mathrm{FastInM}$ 算法需要补全的部分是三个 $SPREAD$ 函数，这三
 - $SPREAD3$ 处理每个 $(x, y) \in AL_2$（第24行），并通过与 $DIFFUSE$ 类似的方式生成新的标签相同的枢纽 $v$ 。不过 $SPREAD3$ 检查查询到的 $u$ 和 $v$ 之间的距离，如果不大于 $d_u$（第25行），则将 $u, v$ 更新到 $PPR$ 进行剪枝。此外，当 $Dis[x_n] \le d_x + w(x_n, x)$ ， $SPREAD3$ 不会更新 $Q$ ，因为在 $SPREAD1$ 里已经停用了所有的过时的标签。
 
 <div STYLE="page-break-after: always;"></div>
+
+<br>
+
 
 ## 代码补全实现
 
@@ -252,7 +258,7 @@ $9: PPR[b, h_c].push(v)$
 
 <div STYLE="page-break-after: always;"></div>
 
-#### `DIFFUSE` 函数
+#### DIFFUSE函数
 
 根据 $DIFFUSE$ 算法伪码，还需要我们自己实现 $D[u] = d_u$ 和 $Q = \{(u|d_u\}$ 。
 
