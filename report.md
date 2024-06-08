@@ -18,9 +18,9 @@
 
 除了共同阅读、理解并多次研讨两篇论文材料，各成员具体贡献如下：
 
-- **LBY：**实现 `SPREAD1` 代码；撰写本报告“ $\mathrm{PPL}$ 算法理解”部分
-- **CZA：**实现 `SPREAD2` 代码；撰写本报告“补全算法理解”部分
-- **FHT：**实现 `DIFFUSE` 和 `SPREAD3` 代码；撰写本报告“代码补全实现”部分并汇总报告
+- **LBY：** 实现 `SPREAD1` 代码；撰写本报告“ $\mathrm{PPL}$ 算法理解”部分
+- **CZA：** 实现 `SPREAD2` 代码；撰写本报告“补全算法理解”部分
+- **FHT：** 实现 `DIFFUSE` 和 `SPREAD3` 代码；撰写本报告“代码补全实现”部分并汇总报告
 
 
 
@@ -48,7 +48,7 @@ $\mathbf{PLL}(\mathbf{Pruned \enspace Landmark \enspace Labeling})$ 是一种专
 
 ### 基本原理
 
-**标签和 $2\!-\!hop$​ 覆盖** 
+**标签和 $2-hop$​ 覆盖** 
 
 - 对于每个顶点 $v$ ，选择一个候选顶点集合 $C(v)$ ，使得每对顶点 $(u, v)$ 在它们之间的最短路径上至少有一个定点 $w \in C(u) \cup C(v)$ 。
 - 顶点 $v$ 的距离标签 $L(v)$ 是一个有序对集合 $(d(u, v), \enspace u)$ ，其中 $u \in C(v)$ 。而通过使用这些标签作为索引，可以快速获取两顶点 $u$ 和 $v$ 之间的最短路径长度 $d(u, v)$ 。
@@ -58,13 +58,15 @@ $\mathbf{PLL}(\mathbf{Pruned \enspace Landmark \enspace Labeling})$ 是一种专
 对于标准的 $\mathrm{BFS}$ 算法，它会遍历图中的所有顶点，这在大规模网络中极其费时费资源。
 
 而在 $\mathrm{PLL}$ 算法中，每个顶点都有一个标签集合 $L(v)$ ，存储了从该顶点到其他顶点的已知最短路径长度，在进行 $\mathrm{BFS}$ 时，剪枝操作基于以下条件进行：
+
+
 $$
 \mathbf{if} \enspace QUERY(v_k, u,  L'_{k-1}) \le P[u] \enspace \mathbf{then} \enspace \mathrm{continue}
 $$
 
-> $QUERY(v_k, u,  L'_{k-1})$ ：通过当前已知的标签集合 $L'_{k-1}$ 查询得到的 $v_k$ 和 $u$​ 之间的距离
+>  $QUERY(v_k, u, L'_ {k-1})$ ：通过当前已知的标签集合 $L'_{k-1}$ 查询得到的 $v_k$ 和 $u$​ 之间的距离
 >
-> $P[u]$ ： $\mathrm{BFS}$ 过程中为 $u$ 动态维护，表示从当前 $\mathrm{BFS}$ 的起点 $v_k$ 到 $u$​ 的最短路径长度估值
+>  $P[u]$ ： $\mathrm{BFS}$ 过程中为 $u$ 动态维护，表示从当前 $\mathrm{BFS}$ 的起点 $v_k$ 到 $u$​ 的最短路径长度估值
 
 根据该剪枝规则，如果**通过已有标签的查询结果不大于当前 $\mathrm{BFS}$ 计算的距离**，那么当前路径不可能提供更短的路径，因此可以**剪枝**，无需对该顶点进行进一步拓展，从而减少 $\mathrm{BFS}$ 树的大小——这个剪枝操作对于减少搜索空间和计算工作量至关重要，具有以下效果：
 
@@ -87,13 +89,13 @@ $$
 
 $\mathrm{FastDeM}$ 算法需要补全的部分是 $DIFFUSE$ ，这个函数处理每个 $(u, v, d_u)\in CL^c$ ，最终生成新的索引 $L$ 和 $PPR$ 。
 
-**首先，**它初始化 $Dis[u] = d_u, Dis[s] = -1$ ，对于所有 $s \in V \textbackslash u$ 。同时初始化一个最小优先队列 $Q$ 包含一个组合的 $u, d_u$（第5行）。
+**首先，** 它初始化 $Dis[u] = d_u, Dis[s] = -1$ ，对于所有 $s \in V \textbackslash u$ 。同时初始化一个最小优先队列 $Q$ 包含一个组合的 $u, d_u$（第5行）。
 
-**之后，**在 $Q$ 非空的情况下循环，每次从优先队列 $Q$ 中取顶,在此时更新一个标签 $L(x)[v] = d_x$（第7行），然后处理 $x$ 的邻居节点，为每个 $x_n \in N(x)$ 且 $r(v) \ge r(x_n)$（第8行）进行检查，根据 $Dis$ 的情况分类处理。
+**之后，** 在 $Q$ 非空的情况下循环，每次从优先队列 $Q$ 中取顶,在此时更新一个标签 $L(x)[v] = d_x$（第7行），然后处理 $x$ 的邻居节点，为每个 $x_n \in N(x)$ 且 $r(v) \ge r(x_n)$（第8行）进行检查，根据 $Dis$ 的情况分类处理。
 
 如果 $Dis[x_n] == -1$ ，说明 $Dis[x_n]$ 尚未初始化，就设置 $Dis[x_n]$ 为当前索引下查询得到的 $x_n$ 和 $v$ 之间距离（第9行）。
 
-**然后，**如果 $Dis[x_n] > d_x + w(x_n, x)$ ，更新 $Dis[x_n]$ 为 $d_x + w(x_n, x)$ ，并把新的 $Dis$ 组合加入 $Q$（第11行）。否则，如果 $c \in C(x_n)$ 且 $\{L(x_n)[v], \enspace Q(x_n)\}$ 中最小的大于 $d_x + w(x_n, x)$（第13行），将新的 $Dis$ 组合加入 $Q$ 。无论查询的距离是否大于待更新的距离，该步骤都将更新所有过期标签。由于这一步， $Dis[x_n]$ 可能小于 $Q(x_n)$ ，但这样更新的标签不会导致错误的查询结果。这样进行更新可以保证所有的标签都可以被及时更新以便后续使用。
+**然后，** 如果 $Dis[x_n] > d_x + w(x_n, x)$ ，更新 $Dis[x_n]$ 为 $d_x + w(x_n, x)$ ，并把新的 $Dis$ 组合加入 $Q$（第11行）。否则，如果 $c \in C(x_n)$ 且 $\{L(x_n)[v], \enspace Q(x_n)\}$ 中最小的大于 $d_x + w(x_n, x)$（第13行），将新的 $Dis$ 组合加入 $Q$ 。无论查询的距离是否大于待更新的距离，该步骤都将更新所有过期标签。由于这一步， $Dis[x_n]$ 可能小于 $Q(x_n)$ ，但这样更新的标签不会导致错误的查询结果。这样进行更新可以保证所有的标签都可以被及时更新以便后续使用。
 
 公共节点 $h_c$ 根据情况不同有着不同的赋值方式。具体而言，在第9行 $h_c$ 是由 $Query$ 给出的公共节点，而在第11行如果更新了 $Dis[n]$ 则 $h_c = v$ 。
 
@@ -145,7 +147,7 @@ $\mathrm{FastInM}$ 算法需要补全的部分是三个 $SPREAD$ 函数，这三
 
 - 根据现有的索引 $L$ 查询图中两点 $u, v$ 间距离（指最短路径长度，下同），即伪代码中的 $Query(u,v,L)$ 
 
-- 在某个点 $u$ 的  $\mathrm{2\!-\!hop \enspace labels}$ 中查找它到某点 $v$ 的距离，即伪代码中的 $L(u)[v]$ 
+- 在某个点 $u$ 的  $\mathrm{2-hop \enspace labels}$ 中查找它到某点 $v$ 的距离，即伪代码中的 $L(u)[v]$ 
 
 - 添加 $PPR$ ，即伪代码中的 $PPR[u, h_c].push(v)$ ，其中 $h_c$ 就是 $u, v$ 的 " $hub$​ "
 
@@ -159,9 +161,9 @@ $\mathrm{FastInM}$ 算法需要补全的部分是三个 $SPREAD$ 函数，这三
 
 **由论文可知：** `DIFFUSE` 函数是 $\mathrm{FastDeM}$ 算法下对应的待补全代码，而该算法在进行 $DIFFUSE$ 之前的预处理和 $\mathbf{Algorithm \enspace 2}\enspace \mathrm{The \enspace RepairedDeAsyn \enspace algorithm}$ 的前半部分算法基本一致。
 
-**同时，**这个预处理对应的代码是已知的，即 `WeightDecreaseMaintenance_improv_step1` 函数。
+**同时，** 这个预处理对应的代码是已知的，即 `WeightDecreaseMaintenance_improv_step1` 函数。
 
-**于是，**可以对照该函数和 $\mathbf{{Algorithm}\enspace{2}}$ 前半部分，找出一些必须操作的代码实现。
+**于是，** 可以对照该函数和 $\mathbf{{Algorithm}\enspace{2}}$ 前半部分，找出一些必须操作的代码实现。
 
 这部分伪代码如下：
 
@@ -169,7 +171,7 @@ $\mathrm{FastInM}$ 算法需要补全的部分是三个 $SPREAD$ 函数，这三
 
 <div STYLE="page-break-after: always;"></div>
 
-**逐行对照**伪代码与 `WeightDecreaseMaintenance_improv_step1` 函数代码，我们得知：
+**逐行对照** 伪代码与 `WeightDecreaseMaintenance_improv_step1` 函数代码，我们得知：
 
 $3:$ **if** $r(v) \ge r(b)$ **then** 
 
@@ -271,7 +273,7 @@ for (int i = 0; i < instance_graph[x].size(); ++i)
 $Q\{(u|d_u) \}$​ 是一个优先队列，但是根据算法，它不仅支持 `std::priority_queue` 的基本操作，还要求：
 
 - 支持更新已在 $Q$ 内部的元素 $u$ 对应的 $d_u$ ，例如伪代码中的 $\mathrm{update}\enspace (x_n | Dis[x_n]) \in Q$ 
-- 支持按照 $u$ 为下标直接访问其对应的 $d_u$ ，例如伪代码中的计算 $\mathrm{min}\{L(x_n)[v], Q(x_n) \}$​​ 
+- 支持按照 $u$ 为下标直接访问其对应的 $d_u$ ，例如伪代码中的计算 $\mathrm{min}\enspace \{L(x_n)[v], Q(x_n)\}$​​ 
 
 <img src="./images/image-DIFFUSE.png" alt="image-DIFFUSE" width = 550 />
 
