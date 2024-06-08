@@ -8,7 +8,7 @@
 
 [TOC]
 
-- [test](#test)
+- [PPL算法理解](#PPL算法理解)
 
 
 **:handshake:分工说明**
@@ -29,7 +29,7 @@
 
 <div STYLE="page-break-after: always;"></div>
 
-## :one: $\mathrm{PPL}$ 算法理解
+## PPL算法理解
 
 $\mathbf{PLL}(\mathbf{Pruned \enspace Landmark \enspace Labeling})$ 是一种专注于在大规模网络（例如社交网络、Web图和道路网络）上更加高效地解决最短路径问题的算法。
 
@@ -157,9 +157,6 @@ $\mathrm{FastInM}$ 算法需要补全的部分是三个 $SPREAD$ 函数，这三
 - 临时“节点-距离”优先队列的建立和使用，即伪代码中的 $Q=\{(u | d_u)\}$​​ 及其相关操作
 
   ...
-
-
-## test
 
 
 #### 算法伪码与实际代码的对应
