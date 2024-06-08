@@ -7,13 +7,13 @@
 - [PPL算法理解](#PPL算法理解)
 - [补全算法理解](#补全算法理解)
   - [FastDeM](#FastDeM)
-  - [FastInM(用于在边权增加时维护标签索引的算法)](#FastInM(用于在边权增加时维护标签索引的算法))
+  - [FastInM](#FastInM)
 - [代码补全实现](#代码补全实现)
   - [实现思路](#实现思路)
     - [DIFFUSE函数](#DIFFUSE函数)
-    - [`SPREAD1` 函数](#`SPREAD1`-函数)
-    - [`SPREAD2` 函数](#`SPREAD2`-函数)
-    - [`SPREAD3` 函数](#`SPREAD3`-函数)
+    - [SPREAD1函数](#SPREAD1函数)
+    - [SPREAD2函数](#SPREAD2函数)
+    - [SPREAD3函数](#SPREAD3函数)
   - [代码测试](#代码测试)
   - [优化讨论](#优化讨论)
 
@@ -116,7 +116,7 @@ $\mathrm{FastDeM}$ 算法需要补全的部分是 $DIFFUSE$ ，这个函数处�
 
 <div STYLE="page-break-after: always;"></div>
 
-### FastInM(用于在边权增加时维护标签索引的算法)  
+### FastInM
 
 <img src="./images/fastinm.png" alt="fastinm" width = "550" />
 
@@ -320,7 +320,7 @@ $Q\{(u|d_u) \}$​ 是一个优先队列，但是根据算法，它不仅支持 
 
 <div STYLE="page-break-after: always;"></div>
 
-#### `SPREAD1` 函数
+#### SPREAD1函数
 
 $SPREAD1$​​ 算法伪码如下：
 
@@ -339,7 +339,7 @@ $SPREAD1$​​ 算法伪码如下：
 
 <div STYLE="page-break-after: always;"></div>
 
-#### `SPREAD2` 函数
+#### SPREAD2函数
 
 $SPREAD2$​ 的算法伪码如下：
 
@@ -363,7 +363,7 @@ $SPREAD2$​ 的算法伪码如下：
 
 <div STYLE="page-break-after: always;"></div>
 
-#### `SPREAD3` 函数
+#### SPREAD3函数
 
 $SPREAD3$ 的算法伪码如下：
 
